@@ -1,4 +1,4 @@
-
+#Ethan
 class cards
 
     #Card Attributes
