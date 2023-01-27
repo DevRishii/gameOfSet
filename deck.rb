@@ -1,34 +1,13 @@
-require "./card.rb"
+#Ethan
+#Rishi
+#Hunter
+class cards
 
-
-class Deck
     #Card Attributes
-    Colors = ["red", "green", "blue"]
-    Numbers = [1,2,3]
-    Shapes = ["diamond", "oval", "squig"]
-    Shading = ["empty", "shaded", "solid"]
-
-    def initialize
-        @deck = Array.new
-        Numbers.each do |number|
-            Shapes.each do |shape|
-                Colors.each do |color| 
-                    Shading.each do |shade|
-                        @deck.push(Card.new(number, shape, color, shade))
-                    end
-                end
-            end
-        end
-    end
-
-    def length
-        @deck.length
-    end 
-
-    def shuffle
-        @deck.shuffle!
-    end
-
+    colors = [red, green, blue]
+    numbers = [1,2,3]
+    shapes = [diamond, oval, squig]
+    fills = [empty, shaded, solid]
 
     #Function that deals 3 cards
     #returns true if deals 3 cards and returns false if no cards left
@@ -74,8 +53,8 @@ class Deck
     end
     
 
-    # [1,2,79,80,81,6,7,8,9,10,11,12,13,14,15,..,3,4,5]
-    # dealtcard = 12
-    # endofarray = 78
+    [1,2,79,80,81,6,7,8,9,10,11,12,13,14,15,..,3,4,5]
+    dealtcard = 12
+    endofarray = 78
 
 end
