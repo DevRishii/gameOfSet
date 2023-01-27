@@ -1,4 +1,4 @@
-
+#Ethan
 class cards
 
     #Card Attributes
@@ -43,6 +43,7 @@ class cards
 
     end
 
+    
 
     #Main function to initialize the game (calls other functions mainly)
     def initializeGame 
