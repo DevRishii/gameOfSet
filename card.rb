@@ -1,3 +1,4 @@
+#Class controlling individual cards
 class Card
 
     def initialize(number, shape, color, shading)
@@ -11,7 +12,4 @@ class Card
         "[#{@number}, #{@shape}, #{@color}, #{@shading}]"
     end
         
-
-
-
 end

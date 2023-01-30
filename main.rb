@@ -1,7 +1,11 @@
-require "./card.rb"
-require "./deck.rb"
+require "./game.rb"
 
-deck = Deck.new
+# deck = Deck.new
 
-puts deck.length
-puts deck.shuffle
+# puts deck.length
+# puts deck.shuffle
+
+#while loop that will be going forever until game ends
+while true 
+
+    #calls all necessary functions inside of game 
