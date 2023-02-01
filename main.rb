@@ -43,6 +43,12 @@ class Main
 
         playerTurn = 1
 
+        #Starts the game with a total of 9 cards on the table
+        for i in 0..2 do
+
+            game.dealCards(cardDeck, tableDeck)
+        end
+
         #while loop that will be going forever until game ends
         while gameStatus 
             if playerTurn > playerCount
@@ -56,11 +62,20 @@ class Main
             end
             
 
-            #asks the current player what their choice is 
-            playerDeck[playerTurn - 1].getChoice
+            #Asks the current player what their choice is,
+            # Adds a point to the player and totalpoints 
+            # if the method returns true
+            if playerDeck[playerTurn - 1].getChoice == true
+
+                playerDeck[playerTurn - 1].score += 1
+                totalPoints += 1
+            end
 
             #calls all necessary functions inside of game 
-            gameStatus = false
+            #gameStatus = false
+
+            playerTurn += 1
+            game.dealCards(cardDeck, tableDeck) #Deal 3 new cards to the table
 
             if totalPoints == 27
                 puts "Game over"
@@ -78,13 +93,23 @@ class Main
                 gameChoice = gets.chomp.to_i
                 if gameChoice == 1
                     gameStatus = true;
+
+                    #everything below is to reset the game
+                    playerTurn = 1
+                    totalPoints = 0
+                    cardDeck = Deck.new
+                    cardDeck.createFullDeck
+                    cardDeck.shuffle
+                    tableDeck = Deck.new
+
+                    #Starts the game with a total of 9 cards on the table
+                    for i in 0..2 do
+                        game.dealCards(cardDeck, tableDeck)
+                    end
                 else
                     gameStatus = false;
                 end
             end
-
-            playerTurn += 1
-
         end
         puts "Game Ending..."
 
