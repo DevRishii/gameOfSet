@@ -17,28 +17,29 @@ class Player
     # returns true of chosen cards are a set; returns false if they skip or cards are not a set
     def getChoice(tableDeck)
         checkVal = false
-        sizeDeck = tableDeck.length()
+        sizeDeck = tableDeck.length
         while !checkVal
-            puts "Enter the card number you would like to choose."
+            puts "Enter the 3 card numbers you would like to choose."
             puts "Card number starts from Zero(0) to #{sizeDeck} and split numbers with space."
             choice = gets.chomp
             chosenCard = Array.new
             chosenCard = choice.split
             chosenCard.each do |i|
-                if i.is_an_int
+                i = i.to_i
+                if i.is_a? Integer
                     if !(i >= 0) || !(i < sizeDeck)
-                        puts "Typed wrong Number"
+                        puts "Typed wrong Number(s)"
                         break
                     end
                     checkVal = true
                 else
-                    puts "Typed wrong Number"
+                    puts "One or more character is not a Number"
                     break
                 end
             end
             
         end
-        return verifyCards(chosenCard[0], chosenCard[1], chosenCard[2])
+        return tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i), tableDeck.index(chosenCard[1].to_i), tableDeck.index(chosenCard[2].to_i))
 
     end
 

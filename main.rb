@@ -65,7 +65,7 @@ class Main
             #Asks the current player what their choice is,
             # Adds a point to the player and totalpoints 
             # if the method returns true
-            if playerDeck.index(playerTurn - 1).getChoice == true
+            if playerDeck.index(playerTurn - 1).getChoice(tableDeck) == true
 
                 playerDeck.index(playerTurn - 1).score += 1
                 totalPoints += 1
