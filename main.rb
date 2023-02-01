@@ -58,16 +58,16 @@ class Main
             puts ""
             
             for i in 1..tableDeck.length do
-                puts "#{i}: " + tableDeck[i - 1].to_s
+                puts "#{i}: " + tableDeck.index(i - 1).to_s
             end
             
 
             #Asks the current player what their choice is,
             # Adds a point to the player and totalpoints 
             # if the method returns true
-            if playerDeck[playerTurn - 1].getChoice == true
+            if playerDeck.index(playerTurn - 1).getChoice == true
 
-                playerDeck[playerTurn - 1].score += 1
+                playerDeck.index(playerTurn - 1).score += 1
                 totalPoints += 1
             end
 

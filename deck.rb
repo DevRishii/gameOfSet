@@ -46,6 +46,10 @@ class Deck
         @deck.pop
     end
 
+    def index(x)
+        @deck[x]
+    end
+
     #returns a string representation of the deck
     def to_s
         @deck.each do |item|
