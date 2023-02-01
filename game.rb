@@ -12,8 +12,20 @@ class Game
 
     #Function that deals 3 cards
     #returns true if deals 3 cards and returns false if no cards left
-    def dealCards(cardDeck)
+    def dealCards(cardDeck, tableDeck)
         
+        for i in 0..2 do
+
+            if cardDeck.length > 0
+
+                tableDeck.push(cardDeck.pop)  
+            else     
+
+                return false
+            end
+        end
+
+        return true
     end
 
     #Checks if there is at least one set on the table 
@@ -30,7 +42,7 @@ class Game
         playerCount = gets.chomp
     end
     
-    # [1,2,79,80,81,6,7,8,9,10,11,12,13,14,15,..,3,4,5]
+    # [1,2,79,80,81,6,7,8,9,10,11,12,13,14,15,..,3,4,5] <- used cards are no longer sent to back of deck array -Hunter
     # dealtcard = 12
     # endofarray = 78
 
