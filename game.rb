@@ -1,6 +1,6 @@
 require "./card.rb"
 require "./deck.rb"
-require "./players.rb"
+require "./player.rb"
 
 #Class controlling the game state and logic (where everything will mainly occur)
 class Game
@@ -28,18 +28,17 @@ class Game
         return true
     end
 
-    #Checks if there is at least one set on the table 
-    #returns true if there is at least one set
-    #returns false if there are no sets
-    def verifyTable 
+    #Starts timer @ETHAN
+    def timerStart
 
     end
 
-    #Asks user for total number of players and initializes the game based
-    #on total number of players
+
+    #Asks user for total number of players; returns an int with number of players
     def getPlayers 
         puts "How many players are there: "
         playerCount = gets.chomp
+        playerCount.to_i
     end
     
     # [1,2,79,80,81,6,7,8,9,10,11,12,13,14,15,..,3,4,5] <- used cards are no longer sent to back of deck array -Hunter

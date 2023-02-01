@@ -36,6 +36,23 @@ class Deck
         @deck.shuffle!
     end
 
+    #adds an item to the end of the array
+    def push(x)
+        @deck.push(x)
+    end
+
+    #removed the item at the end of the array
+    def pop
+        @deck.pop
+    end
+
+    #returns a string representation of the deck
+    def to_s
+        @deck.each do |item|
+            item.to_s
+        end
+    end
+
     #function that checks if the 3 cards are a set
     #return true if all cards are a set
     #last edited 1.30 by Ethan

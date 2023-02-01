@@ -1,5 +1,6 @@
 #Class controlling individual cards
 class Card
+    
 
     def initialize(number, shape, color, shading)
         @number = number
