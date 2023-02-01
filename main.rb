@@ -106,6 +106,12 @@ class Main
                     for i in 0..2 do
                         game.dealCards(cardDeck, tableDeck)
                     end
+
+                    #Reset individual player scores
+                    for i in playerDeck
+                        i.score = 0                    
+                    end
+
                 else
                     gameStatus = false;
                 end
