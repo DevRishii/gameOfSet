@@ -46,6 +46,7 @@ class Deck
         @deck.pop
     end
 
+    #gets specified element of array by index
     def index(x)
         @deck[x]
     end
@@ -59,14 +60,14 @@ class Deck
 
     #function that checks if the 3 cards are a set
     #return true if all cards are a set
-    #last edited 1.30 by Ethan
+    #edited 1.30 by Ethan, last edited 2.1 by Hunter
     def verifyCards card1, card2, card3
         isSet = true
         #compares each feature using a for loop
         for i in 0..3 do
             #each feature of 3 cards either be the same OR different
-            if not (card1[i] == card2[i] && card2[i] == card3[i]) || 
-                (card1[i] != card2[i] && card1[i] != card3[i] && card2[i] != card3[i])
+            if not (card1.index(i) == card2.index(i) && card2.index(i) == card3.index(i)) || 
+                (card1.index(i) != card2.index(i) && card1.index(i) != card3.index(i) && card2.index(i) != card3.index(i))
                 return false
             end
         end
