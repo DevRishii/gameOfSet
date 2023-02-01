@@ -26,7 +26,8 @@ class Game
     #Asks user for total number of players and initializes the game based
     #on total number of players
     def getPlayers 
-        
+        puts "How many players are there: "
+        playerCount = gets.chomp
     end
     
     # [1,2,79,80,81,6,7,8,9,10,11,12,13,14,15,..,3,4,5]
