@@ -38,7 +38,18 @@ class Deck
 
     #function that checks if the 3 cards are a set
     #return true if all cards are a set
-    def verifyCards (card1, card2, card3)
-        
+    #last edited 1.30 by Ethan
+    def verifyCards card1, card2, card3
+        isSet = true
+        #compares each feature using a for loop
+        for i in 0..3 do
+            #each feature of 3 cards either be the same OR different
+            if not (card1[i] == card2[i] && card2[i] == card3[i]) || 
+                (card1[i] != card2[i] && card1[i] != card3[i] && card2[i] != card3[i])
+                return false
+            end
+        end
+        return isSet
     end
+
 end
