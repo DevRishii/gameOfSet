@@ -66,8 +66,8 @@ class Deck
         #compares each feature using a for loop
         for i in 0..3 do
             #each feature of 3 cards either be the same OR different
-            if not (card1.index(i) == card2.index(i) && card2.index(i) == card3.index(i)) || 
-                (card1.index(i) != card2.index(i) && card1.index(i) != card3.index(i) && card2.index(i) != card3.index(i))
+            if not (card1.featureIndex(i) == card2.featureIndex(i) && card2.featureIndex(i) == card3.featureIndex(i)) || 
+                (card1.featureIndex(i) != card2.featureIndex(i) && card1.featureIndex(i) != card3.featureIndex(i) && card2.featureIndex(i) != card3.featureIndex(i))
                 return false
             end
         end
