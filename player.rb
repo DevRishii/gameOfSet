@@ -52,6 +52,11 @@ class Player
         @score
     end
 
+    #adds x to score
+    def addScore(x)
+        @score += x
+    end
+
     #returns name and score of player
     def to_s
         "[#{@name},#{@score}]"
