@@ -40,7 +40,7 @@ class Player
             end
             
         end
-        return tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i), tableDeck.index(chosenCard[1].to_i), tableDeck.index(chosenCard[2].to_i))
+        return tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i - 1), tableDeck.index(chosenCard[1].to_i - 1), tableDeck.index(chosenCard[2].to_i - 1))
 
     end
 

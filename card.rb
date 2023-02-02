@@ -14,13 +14,13 @@ class Card
         
         case x
 
-        when x == 0
+        when 0
             return @number
-        when x == 1
+        when 1
             return @shape
-        when x == 2
+        when 2
             return @color
-        when x == 3
+        when 3
             return @shading
         end
 

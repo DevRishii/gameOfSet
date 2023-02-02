@@ -63,10 +63,11 @@ class Deck
     #edited 1.30 by Ethan, last edited 2.1 by Hunter
     def verifyCards card1, card2, card3
         isSet = true
+
         #compares each feature using a for loop
         for i in 0..3 do
             #each feature of 3 cards either be the same OR different
-            if not (card1.featureIndex(i) == card2.featureIndex(i) && card2.featureIndex(i) == card3.featureIndex(i)) || 
+            if not (card1.featureIndex(i) == card2.featureIndex(i) && card2.featureIndex(i) == card3.featureIndex(i)) ||
                 (card1.featureIndex(i) != card2.featureIndex(i) && card1.featureIndex(i) != card3.featureIndex(i) && card2.featureIndex(i) != card3.featureIndex(i))
 
                 puts ""
