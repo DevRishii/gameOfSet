@@ -39,7 +39,7 @@ class Main
 
         gameStatus = true
 
-        totalPoints = 24 #set to 26 to test end game
+        totalPoints = 0
 
         playerTurn = 1
 
