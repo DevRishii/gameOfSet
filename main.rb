@@ -39,7 +39,7 @@ class Main
 
         gameStatus = true
 
-        totalPoints = 0
+        totalPoints = 24 #set to 26 to test end game
 
         playerTurn = 1
 
@@ -80,16 +80,24 @@ class Main
 
             if totalPoints == 27
                 puts "Game over"
-                winner = Player.new("winner", 0)
-                for i in playerDeck
-                    if i.score > winner.score
-                        winner.score = i.score
-                        winner.name = i.name
+                winner = Player.new(playerDeck.index(0).name, playerDeck.index(0).score)
+                tieCount = 0
+                for i in 1..(playerDeck.length - 1) do
+                    if playerDeck.index(i).score > winner.score
+                        winner.setScore(playerDeck.index(i).score)
+                        winner.setName(playerDeck.index(i).name)
+                    elsif playerDeck.index(i).score == winner.score
+                        tieCount += 1
                     end
                 end
-                puts ""
-                puts "The winnner is #{winner.name} with a score of #{winner.score}"
 
+                puts ""
+                if tieCount != playerDeck.length - 1 || playerDeck.length == 1
+                    puts "The winnner is #{winner.name} with a score of #{winner.score}!"
+                else
+                    puts "The game is a tie..."
+                end
+                puts ""
                 puts "Would you like to play again? (1 - yes, 2 - no)"
                 gameChoice = gets.chomp.to_i
                 if gameChoice == 1
@@ -109,8 +117,8 @@ class Main
                     end
 
                     #Reset individual player scores
-                    for i in playerDeck
-                        i.score = 0                    
+                    for i in 0..(playerDeck.length - 1) do
+                        playerDeck.index(i).setScore(0)                    
                     end
 
                 else

@@ -76,6 +76,16 @@ class Player
         @score += x
     end
 
+    #sets the score to x
+    def setScore(x)
+        @score = x
+    end
+
+    #sets the name to x
+    def setName(x)
+        @name = x
+    end
+
     #returns name and score of player
     def to_s
         "[#{@name},#{@score}]"

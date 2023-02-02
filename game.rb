@@ -36,8 +36,16 @@ class Game
 
     #Asks user for total number of players; returns an int with number of players
     def getPlayers 
+        playerCount = "0"
         puts "How many players are there: "
-        playerCount = gets.chomp
+
+        while playerCount.to_i < 1
+            playerCount = gets.chomp
+
+            if playerCount.to_i < 1
+                puts "Invalid number of players."
+            end
+        end
         playerCount.to_i
     end
     
