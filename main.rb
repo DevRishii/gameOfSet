@@ -67,7 +67,7 @@ class Main
             # if the method returns true
             if playerDeck.index(playerTurn - 1).getChoice(tableDeck) == true
 
-                playerDeck.index(playerTurn - 1).score += 1
+                playerDeck.index(playerTurn - 1).addScore(1)
                 totalPoints += 1
             end
 
