@@ -52,7 +52,6 @@ class Player
             #delete selected cards from tableDeck from bottom to top
             chosenCardInt.sort!
             chosenCardInt.reverse_each do |i|
-                puts i.to_s
                 tableDeck.delete_at(i - 1)         
             end
 
