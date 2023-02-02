@@ -55,6 +55,10 @@ class Main
                 puts "#{i}: " + tableDeck[i - 1].to_s
             end
             
+            #countdown for a player's turn
+            #puts ""
+            #game.timerStart(10)
+            #puts ""
 
             #asks the current player what their choice is 
             playerDeck[playerTurn - 1].getChoice

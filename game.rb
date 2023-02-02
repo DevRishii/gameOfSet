@@ -28,9 +28,14 @@ class Game
         return true
     end
 
-    #Starts timer @ETHAN
-    def timerStart
-
+    #Starts timer of 10 seconds per player's turn @Henry
+    def timerStart(seconds)
+        timerEnd = Time.now + seconds
+        while Time.now < timerEnd
+            time = Time.at(timerEnd.to_i - Time.now.to_i)
+            puts time.strftime('%S seconds to end your turn!')
+            sleep 1
+        end
     end
 
 
