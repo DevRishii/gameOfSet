@@ -51,6 +51,11 @@ class Deck
         @deck[x]
     end
 
+    #removes item from array at specific index
+    def delete_at(x)
+        @deck.delete_at(x)
+    end
+
     #returns a string representation of the deck
     def to_s
         @deck.each do |item|

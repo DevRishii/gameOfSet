@@ -28,7 +28,7 @@ class Player
                 if i.to_i.to_s == i
 
                     i = i.to_i
-                    if !(i >= 0) || !(i < sizeDeck)
+                    if !(i >= 0) || !(i <= sizeDeck)
                         puts "Typed wrong Number(s)"
                         break
                     end
@@ -40,8 +40,26 @@ class Player
             end
             
         end
-        return tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i - 1), tableDeck.index(chosenCard[1].to_i - 1), tableDeck.index(chosenCard[2].to_i - 1))
 
+        if tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i - 1), tableDeck.index(chosenCard[1].to_i - 1), tableDeck.index(chosenCard[2].to_i - 1))
+
+            #put chosen numbers into integer array (otherwise they will not sort)
+            chosenCardInt = Array.new
+            chosenCard.each do |i|
+                chosenCardInt.push(i.to_i)
+            end
+
+            #delete selected cards from tableDeck from bottom to top
+            chosenCardInt.sort!
+            chosenCardInt.reverse_each do |i|
+                puts i.to_s
+                tableDeck.delete_at(i - 1)         
+            end
+
+            return true
+        end
+
+        return false
     end
 
     #returns name
