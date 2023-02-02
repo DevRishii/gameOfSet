@@ -25,8 +25,9 @@ class Player
             chosenCard = Array.new
             chosenCard = choice.split
             chosenCard.each do |i|
-                i = i.to_i
-                if i.is_a? Integer
+                if i.to_i.to_s == i
+
+                    i = i.to_i
                     if !(i >= 0) || !(i < sizeDeck)
                         puts "Typed wrong Number(s)"
                         break
