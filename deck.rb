@@ -66,7 +66,7 @@ class Deck
     #function that checks if the 3 cards are a set
     #return true if all cards are a set
     #edited 1.30 by Ethan, last edited 2.1 by Hunter
-    def verifyCards card1, card2, card3
+    def verifyCards card1, card2, card3, playerType
         isSet = true
 
         #compares each feature using a for loop
@@ -75,14 +75,18 @@ class Deck
             if not (card1.featureIndex(i) == card2.featureIndex(i) && card2.featureIndex(i) == card3.featureIndex(i)) ||
                 (card1.featureIndex(i) != card2.featureIndex(i) && card1.featureIndex(i) != card3.featureIndex(i) && card2.featureIndex(i) != card3.featureIndex(i))
 
-                puts ""
-                puts "Not a set. No points earned."
+                if playerType == "player"
+                    puts ""
+                    puts "Not a set. No points earned."
+                end
                 return false
             end
         end
 
-        puts ""
-        puts "That is a set! +1 point."
+        if playerType == "player"
+            puts ""
+            puts "That is a set! +1 point."
+        end
         return isSet
     end
 

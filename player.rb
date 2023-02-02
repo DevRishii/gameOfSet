@@ -4,9 +4,10 @@ require "./deck.rb"
 #Class to control player related functions
 class Player
 
-    def initialize(name, score)
+    def initialize(name, score, type)
         @name = name
         @score = score
+        @type = type
     end
 
     #Function to let the user choose what they want to do with their turn
@@ -64,7 +65,7 @@ class Player
             end
         end
 
-        if skip == false && tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i - 1), tableDeck.index(chosenCard[1].to_i - 1), tableDeck.index(chosenCard[2].to_i - 1))
+        if skip == false && tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i - 1), tableDeck.index(chosenCard[1].to_i - 1), tableDeck.index(chosenCard[2].to_i - 1), "player")
 
             #put chosen numbers into integer array (otherwise they will not sort)
             chosenCardInt = Array.new
@@ -84,6 +85,72 @@ class Player
         return false
     end
 
+    #Bot will randomly choose a number 1-100,
+    #if the number is 49 or below then the bot will scan the entire table
+    #and pick the first set they see.
+    #If no set is found, the bot will skip their turn.
+    #If the number is 50 or higher then the bot will skip their turn.
+    #
+    #No matter what, before the bot skips or picks a set,
+    #the bot will randomly choose a number 2-6,
+    #and the bot will have that many seconds of artificial thinking time.
+    #
+    #botChoice returns true if a set was found, and returns false if not.
+    def botChoice(tableDeck, name)
+
+        thinkingTime(name)
+        if rand(1..100) < 50 
+            a = 0
+            b = 0
+            c = 0
+            for i in 0..tableDeck.length - 1 do
+                for i in 0..tableDeck.length - 1 do
+                    for i in 0..tableDeck.length - 1 do
+                        if a != b && a != c && b != c && tableDeck.verifyCards(tableDeck.index(a), tableDeck.index(b), tableDeck.index(c), "bot")
+
+                            chosenCardInt = Array.new
+                            chosenCardInt.push(a, b, c)
+
+                            #delete selected cards from tableDeck from bottom to top
+                            chosenCardInt.sort!
+                            chosenCardInt.reverse_each do |i|
+                                tableDeck.delete_at(i)         
+                            end
+
+                            puts ""
+                            puts "#{name} has found a set: #{a + 1} #{b + 1} #{c + 1}"
+                            sleep 1
+                            puts "+1 point for #{name}."
+                            sleep 1
+                            return true
+                        end
+                        c += 1
+                    end
+                    c = 0
+                    b += 1
+                end
+                b = 0
+                a += 1
+            end
+        end
+
+        puts ""
+        puts "#{name} will skip their turn."
+        sleep 1
+        return false
+    end
+
+    def thinkingTime(name)
+        puts ""
+        print "#{name} is thinking"
+        time = rand(2..6)
+
+        for i in 0..time do
+            sleep 1
+            print "."
+        end
+    end
+
     #returns name
     def name 
         @name
@@ -92,6 +159,11 @@ class Player
     #returns score
     def score
         @score
+    end
+
+    #returns type
+    def type
+        @type
     end
 
     #adds x to score

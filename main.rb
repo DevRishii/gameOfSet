@@ -26,7 +26,18 @@ class Main
         while i <= playerCount do
             puts "Enter player #{i}'s name: "
             name = gets.chomp
-            playerDeck.push(Player.new("Player #{i}: "+ name, 0))
+            playerDeck.push(Player.new("Player #{i}: "+ name, 0, "player"))
+            i += 1
+        end
+
+        botCount = game.getBots(playerCount)
+        playerCount += botCount
+        i = 1
+        #Creates a bot object for each bot and adds to an array holding all players
+        while i <= botCount do
+            puts "Enter bot #{i}'s name: "
+            name = gets.chomp
+            playerDeck.push(Player.new("Bot #{i}: "+ name, 0, "bot"))
             i += 1
         end
 
@@ -55,6 +66,8 @@ class Main
                 playerTurn = 1
             end
 
+            sleep 0.5
+
             puts ""
             puts "It is #{playerDeck.index(playerTurn - 1).name}'s turn!"
             puts "Current score: #{playerDeck.index(playerTurn - 1).score}"
@@ -65,22 +78,33 @@ class Main
                 puts "#{i}: " + tableDeck.index(i - 1).to_s
             end
             
-
-            #Asks the current player what their choice is,
+            # Checks first if player is human or bot.
+            # Asks the current player what their choice is,
             # Adds a point to the player and totalpoints 
             # if the method returns true
-            if playerDeck.index(playerTurn - 1).getChoice(tableDeck) == true
+            if (playerDeck.index(playerTurn - 1).type == "player" && playerDeck.index(playerTurn - 1).getChoice(tableDeck) == true) || (playerDeck.index(playerTurn - 1).type == "bot" && playerDeck.index(playerTurn - 1).botChoice(tableDeck, playerDeck.index(playerTurn - 1).name) == true)
 
                 playerDeck.index(playerTurn - 1).addScore(1)
                 totalPoints += 1
+
             end
 
             playerTurn += 1
             game.dealCards(cardDeck, tableDeck) #Deal 3 new cards to the table
 
-            if totalPoints == 27
+            staleMate = false
+            #check the table for sets when there are no more cards left to be drawn
+            if cardDeck.length == 0 && game.verifyTable(tableDeck) == false
+                sleep 1
+                puts ""
+                puts "There are no more possible sets."
+                sleep 0.5
+                staleMate = true
+            end
+
+            if totalPoints == 27 || staleMate == true
                 puts "Game over"
-                winner = Player.new(playerDeck.index(0).name, playerDeck.index(0).score)
+                winner = Player.new(playerDeck.index(0).name, playerDeck.index(0).score, playerDeck.index(0).type)
                 tieCount = 0
                 for i in 1..(playerDeck.length - 1) do
                     if playerDeck.index(i).score > winner.score
