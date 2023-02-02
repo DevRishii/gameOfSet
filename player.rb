@@ -18,30 +18,53 @@ class Player
     def getChoice(tableDeck)
         checkVal = false
         sizeDeck = tableDeck.length
+        skip = false
+        puts ""
+        puts "Card range is from 1 to #{sizeDeck}."
+        puts "Enter the 3 card numbers you would like to choose."
+        puts "Split numbers with a space."
+        puts "Or type \"s\" to skip..."
         while !checkVal
-            puts "Enter the 3 card numbers you would like to choose."
-            puts "Card number starts from Zero(0) to #{sizeDeck} and split numbers with space."
             choice = gets.chomp
-            chosenCard = Array.new
-            chosenCard = choice.split
-            chosenCard.each do |i|
-                if i.to_i.to_s == i
+            if choice != "s"
+                checkVal = true
+                chosenCard = Array.new
+                chosenCard = choice.split
 
-                    i = i.to_i
-                    if !(i >= 0) || !(i <= sizeDeck)
-                        puts "Typed wrong Number(s)"
-                        break
+                if chosenCard.length == 3
+                    chosenCard.each do |i|
+                        if i.to_i.to_s == i
+
+                            i = i.to_i
+                            if !(i >= 0) || !(i <= sizeDeck)
+                                puts "Typed wrong Number(s)."
+                                checkVal = false
+                                break
+                            elsif chosenCard[0] == chosenCard[1] || chosenCard[0] == chosenCard[2] || chosenCard[1] == chosenCard[2]
+                                puts "Can only enter each card once."
+                                checkVal = false
+                                break
+                            end
+                        else
+                            puts "One or more character is not a Number."
+                            checkVal = false
+                            break
+                        end
                     end
-                    checkVal = true
                 else
-                    puts "One or more character is not a Number"
-                    break
+                    puts "Exactly 3 cards must be entered."
+                    checkVal = false  
                 end
+                
+            else
+                puts ""
+                puts "Turn skipped."
+                skip = true
+                checkVal = true
             end
-            
         end
 
-        if tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i - 1), tableDeck.index(chosenCard[1].to_i - 1), tableDeck.index(chosenCard[2].to_i - 1))
+        if skip == false && tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i - 1), tableDeck.index(chosenCard[1].to_i - 1), tableDeck.index(chosenCard[2].to_i - 1))
 
             #put chosen numbers into integer array (otherwise they will not sort)
             chosenCardInt = Array.new
