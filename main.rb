@@ -56,7 +56,11 @@ class Main
             end
 
             puts ""
-            
+            puts "It is #{playerDeck.index(playerTurn - 1).name}'s turn!"
+            puts "Current score: #{playerDeck.index(playerTurn - 1).score}"
+            puts ""
+
+            #Displays cards on the table for the player
             for i in 1..tableDeck.length do
                 puts "#{i}: " + tableDeck.index(i - 1).to_s
             end
@@ -70,9 +74,6 @@ class Main
                 playerDeck.index(playerTurn - 1).addScore(1)
                 totalPoints += 1
             end
-
-            #calls all necessary functions inside of game 
-            #gameStatus = false
 
             playerTurn += 1
             game.dealCards(cardDeck, tableDeck) #Deal 3 new cards to the table

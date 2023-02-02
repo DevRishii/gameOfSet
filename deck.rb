@@ -68,9 +68,15 @@ class Deck
             #each feature of 3 cards either be the same OR different
             if not (card1.featureIndex(i) == card2.featureIndex(i) && card2.featureIndex(i) == card3.featureIndex(i)) || 
                 (card1.featureIndex(i) != card2.featureIndex(i) && card1.featureIndex(i) != card3.featureIndex(i) && card2.featureIndex(i) != card3.featureIndex(i))
+
+                puts ""
+                puts "Not a set. No points earned."
                 return false
             end
         end
+
+        puts ""
+        puts "That is a set! +1 point."
         return isSet
     end
 
