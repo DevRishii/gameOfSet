@@ -1,4 +1,5 @@
 require "./card.rb"
+require "./game.rb"
 
 #Class controlling a Deck of objects can be empty or full (basically an array, used for cards and players)
 class Deck
@@ -58,8 +59,16 @@ class Deck
 
     #put tableDeck back into cardDeck, shuffle cardDeck, then put a max of 12 cards back into tableDeck.
     #Using dealCards method could be useful here
-    def reshuffle(tableDeck, cardDeck)
-        #code here
+    def reshuffle(cardDeck, tableDeck)
+        while tableDeck.length > 0
+            cardDeck.push(tableDeck.pop)
+        end
+        
+        cardDeck.shuffle
+
+        4.times do 
+            dealCards(cardDeck, tableDeck)
+        end
     end
 
     #returns a string representation of the deck
