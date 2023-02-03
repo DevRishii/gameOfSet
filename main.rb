@@ -55,7 +55,7 @@ class Main
         playerTurn = 1
 
         #Starts the game with a total of 9 cards on the table
-        for i in 0..2 do
+        for i in 0..3 do
 
             game.dealCards(cardDeck, tableDeck)
         end
@@ -82,15 +82,14 @@ class Main
             # Asks the current player what their choice is,
             # Adds a point to the player and totalpoints 
             # if the method returns true
-            if (playerDeck.index(playerTurn - 1).type == "player" && playerDeck.index(playerTurn - 1).getChoice(tableDeck) == true) || (playerDeck.index(playerTurn - 1).type == "bot" && playerDeck.index(playerTurn - 1).botChoice(tableDeck, playerDeck.index(playerTurn - 1).name) == true)
+            if (playerDeck.index(playerTurn - 1).type == "player" && playerDeck.index(playerTurn - 1).getChoice(tableDeck, cardDeck) == true) || (playerDeck.index(playerTurn - 1).type == "bot" && playerDeck.index(playerTurn - 1).botChoice(tableDeck, playerDeck.index(playerTurn - 1).name, cardDeck) == true)
 
                 playerDeck.index(playerTurn - 1).addScore(1)
                 totalPoints += 1
-
+                game.dealCards(cardDeck, tableDeck) #Deal 3 new cards to the table
             end
 
             playerTurn += 1
-            game.dealCards(cardDeck, tableDeck) #Deal 3 new cards to the table
 
             staleMate = false
             #check the table for sets when there are no more cards left to be drawn

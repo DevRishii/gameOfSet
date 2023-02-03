@@ -56,6 +56,12 @@ class Deck
         @deck.delete_at(x)
     end
 
+    #put tableDeck back into cardDeck, shuffle cardDeck, then put a max of 12 cards back into tableDeck.
+    #Using dealCards method could be useful here
+    def reshuffle(tableDeck, cardDeck)
+        #code here
+    end
+
     #returns a string representation of the deck
     def to_s
         @deck.each do |item|

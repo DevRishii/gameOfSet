@@ -16,7 +16,14 @@ class Player
     # If choose set, let the player choose 3 cards
     # calls verifyCards with the 3 chosen cards 
     # returns true of chosen cards are a set; returns false if they skip or cards are not a set
-    def getChoice(tableDeck)
+    #
+    # RESHUFFLE OPTION: call verifyTable to verify if there is a set on the table.
+    # If there is a set, proceed normally and DO NOT give the player the option to reshuffle.
+    # If there is no set, tell the player that there is no set and give them the option to skip or reshuffle.
+    # The player can reshuffle with the r key.
+    # If the player reshuffles, call the reshuffle method inside of the Deck class.
+    # Allow this process to repeat to allow the player to always reshuffle if there is no set.
+    def getChoice(tableDeck, cardDeck)
         checkVal = false
         sizeDeck = tableDeck.length
         skip = false
@@ -27,6 +34,7 @@ class Player
         puts "Or type \"s\" to skip..."
         while !checkVal
             choice = gets.chomp
+            # SKIP OPTION IS HERE
             if choice != "s"
                 checkVal = true
                 chosenCard = Array.new
@@ -96,7 +104,12 @@ class Player
     #and the bot will have that many seconds of artificial thinking time.
     #
     #botChoice returns true if a set was found, and returns false if not.
-    def botChoice(tableDeck, name)
+    #
+    # RESHUFFLE OPTION: If the bot could not find a set, give them a 50/50 chance to reshuffle.
+    # If the bot successfully reshuffles, call the reshuffle method inside of the Deck class.
+    # The bot will then repeat this process until they end up skipping or finding a set.
+    # If the bot does not succesfully reshuffle, let the bot skip their turn.
+    def botChoice(tableDeck, name, cardChoice)
 
         thinkingTime(name)
         if rand(1..100) < 50 
