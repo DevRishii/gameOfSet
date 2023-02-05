@@ -1,4 +1,5 @@
 require "./deck.rb"
+require "./game.rb"
 
 
 #Class to control player related functions
@@ -23,73 +24,106 @@ class Player
     # The player can reshuffle with the r key.
     # If the player reshuffles, call the reshuffle method inside of the Deck class.
     # Allow this process to repeat to allow the player to always reshuffle if there is no set.
-    def getChoice(tableDeck, cardDeck)
+    def getChoice(tableDeck, cardDeck, game)
         checkVal = false
         sizeDeck = tableDeck.length
         skip = false
-        puts ""
-        puts "Card range is from 1 to #{sizeDeck}."
-        puts "Enter the 3 card numbers you would like to choose."
-        puts "Split numbers with a space."
-        puts "Or type \"s\" to skip..."
-        while !checkVal
-            choice = gets.chomp
-            # SKIP OPTION IS HERE
-            if choice != "s"
-                checkVal = true
-                chosenCard = Array.new
-                chosenCard = choice.split
-
-                if chosenCard.length == 3
-                    chosenCard.each do |i|
-                        if i.to_i.to_s == i
-
-                            i = i.to_i
-                            if !(i >= 0) || !(i <= sizeDeck)
-                                puts "Typed wrong Number(s)."
-                                checkVal = false
-                                break
-                            elsif chosenCard[0] == chosenCard[1] || chosenCard[0] == chosenCard[2] || chosenCard[1] == chosenCard[2]
-                                puts "Can only enter each card once."
-                                checkVal = false
-                                break
-                            end
-                        else
-                            puts "One or more character is not a Number."
-                            checkVal = false
-                            break
-                        end
-                    end
-                else
-                    puts "Exactly 3 cards must be entered."
-                    checkVal = false  
+        if game.verifyTable(tableDeck) == false
+            puts "There is no set."
+            puts "Enter \"r\" to reshuffle the deck."
+            puts "Enter \"s\" if you don't want to reshuffle the deck."
+            enter = gets.chomp
+            if enter == "r"
+                while game.verifyTable(tableDeck) == false
+                    tableDeck.reshuffle(cardDeck, tableDeck,game)
                 end
-                
-            else
+                puts "A set is placed on the table."
+            elsif enter != 's' && enter != 'r'
+                puts "Typed the wrong word. "
+            
+            else 
                 puts ""
                 puts "Turn skipped."
                 skip = true
                 checkVal = true
             end
         end
-
-        if skip == false && tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i - 1), tableDeck.index(chosenCard[1].to_i - 1), tableDeck.index(chosenCard[2].to_i - 1), "player")
-
-            #put chosen numbers into integer array (otherwise they will not sort)
-            chosenCardInt = Array.new
-            chosenCard.each do |i|
-                chosenCardInt.push(i.to_i)
+        if  !skip
+            puts ""
+                #Displays cards on the table for the player
+            for i in 1..tableDeck.length do
+               puts "#{i}: " + tableDeck.index(i - 1).to_s
             end
-
-            #delete selected cards from tableDeck from bottom to top
-            chosenCardInt.sort!
-            chosenCardInt.reverse_each do |i|
-                tableDeck.delete_at(i - 1)         
-            end
-
-            return true
+                puts ""
+                puts "Card range is from 1 to #{sizeDeck}."
+                puts "Enter the 3 card numbers you would like to choose."
+                puts "Split numbers with a space."
+                puts "Or type \"s\" to skip..."
         end
+                while !checkVal
+                    choice = gets.chomp
+                
+                    # SKIP OPTION IS HERE
+                    if choice != "s"
+                     checkVal = true
+                    chosenCard = Array.new
+                    chosenCard = choice.split
+                    
+                    if chosenCard.length == 3
+                        chosenCard.each do |i|
+                        if i.to_i.to_s == i   
+                            i = i.to_i
+                                if !(i >= 0) || !(i <= sizeDeck)
+                                    puts "Typed wrong Number(s)."
+                                    checkVal = false
+                                     break
+                                elsif chosenCard[0] == chosenCard[1] || chosenCard[0] == chosenCard[2] || chosenCard[1] == chosenCard[2]
+                                    puts "Can only enter each card once."
+                                    checkVal = false
+                                    break
+                                end
+                            else
+                                puts "One or more character is not a Number."
+                                checkVal = false
+                                break
+                            end
+                        end
+                    else
+                        puts "Exactly 3 cards must be entered."
+                        checkVal = false  
+                    end
+                    
+                    else
+                        puts ""
+                        puts "Turn skipped."
+                        skip = true
+                        checkVal = true
+                    end
+                end
 
+                if skip == false && tableDeck.verifyCards(tableDeck.index(chosenCard[0].to_i - 1), tableDeck.index(chosenCard[1].to_i - 1), tableDeck.index(chosenCard[2].to_i - 1), "player")
+
+                    #put chosen numbers into integer array (otherwise they will not sort)
+                    chosenCardInt = Array.new
+                    chosenCard.each do |i|
+                        chosenCardInt.push(i.to_i)
+                    end
+        
+                    #delete selected cards from tableDeck from bottom to top
+                    chosenCardInt.sort!
+                    chosenCardInt.reverse_each do |i|
+                        tableDeck.delete_at(i - 1)         
+                    end
+        
+                    return true
+                end
+
+            
+        
+        
+
+
+        
         return false
     end
 

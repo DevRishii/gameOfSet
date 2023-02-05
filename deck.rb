@@ -59,7 +59,7 @@ class Deck
 
     #put tableDeck back into cardDeck, shuffle cardDeck, then put a max of 12 cards back into tableDeck.
     #Using dealCards method could be useful here
-    def reshuffle(cardDeck, tableDeck)
+    def reshuffle(cardDeck, tableDeck, game)
         while tableDeck.length > 0
             cardDeck.push(tableDeck.pop)
         end
@@ -67,7 +67,7 @@ class Deck
         cardDeck.shuffle
 
         4.times do 
-            dealCards(cardDeck, tableDeck)
+            game.dealCards(cardDeck, tableDeck)
         end
     end
 

@@ -82,7 +82,7 @@ class Main
             # Asks the current player what their choice is,
             # Adds a point to the player and totalpoints 
             # if the method returns true
-            if (playerDeck.index(playerTurn - 1).type == "player" && playerDeck.index(playerTurn - 1).getChoice(tableDeck, cardDeck) == true) || (playerDeck.index(playerTurn - 1).type == "bot" && playerDeck.index(playerTurn - 1).botChoice(tableDeck, playerDeck.index(playerTurn - 1).name, cardDeck) == true)
+            if (playerDeck.index(playerTurn - 1).type == "player" && playerDeck.index(playerTurn - 1).getChoice(tableDeck, cardDeck, game) == true) || (playerDeck.index(playerTurn - 1).type == "bot" && playerDeck.index(playerTurn - 1).botChoice(tableDeck, playerDeck.index(playerTurn - 1).name, cardDeck) == true)
 
                 playerDeck.index(playerTurn - 1).addScore(1)
                 totalPoints += 1
