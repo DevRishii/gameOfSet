@@ -77,19 +77,6 @@ class Main
             for i in 1..tableDeck.length do
                 puts "#{i}: " + tableDeck.index(i - 1).to_s
             end
-            
-            # Checks first if player is human or bot.
-            # Asks the current player what their choice is,
-            # Adds a point to the player and totalpoints 
-            # if the method returns true
-            if (playerDeck.index(playerTurn - 1).type == "player" && playerDeck.index(playerTurn - 1).getChoice(tableDeck, cardDeck, game) == true) || (playerDeck.index(playerTurn - 1).type == "bot" && playerDeck.index(playerTurn - 1).botChoice(tableDeck, playerDeck.index(playerTurn - 1).name, cardDeck) == true)
-
-                playerDeck.index(playerTurn - 1).addScore(1)
-                totalPoints += 1
-                game.dealCards(cardDeck, tableDeck) #Deal 3 new cards to the table
-            end
-
-            playerTurn += 1
 
             staleMate = false
             #check the table for sets when there are no more cards left to be drawn
@@ -99,7 +86,20 @@ class Main
                 puts "There are no more possible sets."
                 sleep 0.5
                 staleMate = true
+            else
+                # Checks first if player is human or bot.
+                # Asks the current player what their choice is,
+                # Adds a point to the player and totalpoints 
+                # if the method returns true
+                if (playerDeck.index(playerTurn - 1).type == "player" && playerDeck.index(playerTurn - 1).getChoice(tableDeck, cardDeck, game) == true) || (playerDeck.index(playerTurn - 1).type == "bot" && playerDeck.index(playerTurn - 1).botChoice(tableDeck, playerDeck.index(playerTurn - 1).name, cardDeck, game) == true)
+
+                    playerDeck.index(playerTurn - 1).addScore(1)
+                    totalPoints += 1
+                    game.dealCards(cardDeck, tableDeck) #Deal 3 new cards to the table
+                end
             end
+
+            playerTurn += 1
 
             if totalPoints == 27 || staleMate == true
                 puts "Game over"
@@ -135,7 +135,7 @@ class Main
                     tableDeck = Deck.new
 
                     #Starts the game with a total of 9 cards on the table
-                    for i in 0..2 do
+                    for i in 0..3 do
                         game.dealCards(cardDeck, tableDeck)
                     end
 

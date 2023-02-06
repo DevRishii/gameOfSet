@@ -28,12 +28,14 @@ class Player
         checkVal = false
         sizeDeck = tableDeck.length
         skip = false
+        reshuffled = false
         if game.verifyTable(tableDeck) == false
             puts "There is no set."
             puts "Enter \"r\" to reshuffle the deck."
             puts "Enter \"s\" if you don't want to reshuffle the deck."
             enter = gets.chomp
             if enter == "r"
+                reshuffled = true
                 while game.verifyTable(tableDeck) == false
                     tableDeck.reshuffle(cardDeck, tableDeck,game)
                 end
@@ -50,9 +52,11 @@ class Player
         end
         if  !skip
             puts ""
+            if reshuffled
                 #Displays cards on the table for the player
-            for i in 1..tableDeck.length do
-               puts "#{i}: " + tableDeck.index(i - 1).to_s
+                for i in 1..tableDeck.length do
+                    puts "#{i}: " + tableDeck.index(i - 1).to_s
+                end
             end
                 puts ""
                 puts "Card range is from 1 to #{sizeDeck}."
@@ -127,7 +131,7 @@ class Player
         return false
     end
 
-    #Bot will randomly choose a number 1-100,
+      #Bot will randomly choose a number 1-100,
     #if the number is 49 or below then the bot will scan the entire table
     #and pick the first set they see.
     #If no set is found, the bot will skip their turn.
@@ -143,41 +147,61 @@ class Player
     # If the bot successfully reshuffles, call the reshuffle method inside of the Deck class.
     # The bot will then repeat this process until they end up skipping or finding a set.
     # If the bot does not succesfully reshuffle, let the bot skip their turn.
-    def botChoice(tableDeck, name, cardChoice)
+    def botChoice(tableDeck, name, cardDeck, game)
+        continue = true
+        #keep looping until the bot finds a set or skips
+        while continue
+            thinkingTime(name)
+            # give the bot 50% chance to not skip
+            if rand(1..100) < 50 
+                # every combination of 3 cards on the table to find a set
+                for a in 0..tableDeck.length - 1 do
+                    for b in 0..tableDeck.length - 1 do
+                        for c in 0..tableDeck.length - 1 do
+                            #cards can't be identical
+                            if a != b && a != c && b != c
+                                if tableDeck.verifyCards(tableDeck.index(a), tableDeck.index(b), tableDeck.index(c), "bot")
+                                    chosenCardInt = Array.new
+                                    chosenCardInt.push(a, b, c)
 
-        thinkingTime(name)
-        if rand(1..100) < 50 
-            a = 0
-            b = 0
-            c = 0
-            for i in 0..tableDeck.length - 1 do
-                for i in 0..tableDeck.length - 1 do
-                    for i in 0..tableDeck.length - 1 do
-                        if a != b && a != c && b != c && tableDeck.verifyCards(tableDeck.index(a), tableDeck.index(b), tableDeck.index(c), "bot")
+                                    #delete selected cards from tableDeck from bottom to top
+                                    chosenCardInt.sort!
+                                    chosenCardInt.reverse_each do |i|
+                                        tableDeck.delete_at(i)
+                                    end
 
-                            chosenCardInt = Array.new
-                            chosenCardInt.push(a, b, c)
-
-                            #delete selected cards from tableDeck from bottom to top
-                            chosenCardInt.sort!
-                            chosenCardInt.reverse_each do |i|
-                                tableDeck.delete_at(i)         
+                                    puts ""
+                                    puts "#{name} has found a set: #{a + 1} #{b + 1} #{c + 1}"
+                                    sleep 1
+                                    puts "+1 point for #{name}"
+                                    sleep 1
+                                    return true
+                                    continue = false
+                                end
                             end
-
-                            puts ""
-                            puts "#{name} has found a set: #{a + 1} #{b + 1} #{c + 1}"
-                            sleep 1
-                            puts "+1 point for #{name}."
-                            sleep 1
-                            return true
                         end
-                        c += 1
                     end
-                    c = 0
-                    b += 1
                 end
-                b = 0
-                a += 1
+
+                #if the bot can't find a set, give it 50% chance to reshuffle
+                if rand(1..100) < 50
+                    tableDeck.reshuffle(cardDeck, tableDeck, game)
+                    puts ""
+                    puts "#{name} has reshuffled."
+                    sleep 1
+                    puts ""
+                    #Displays cards on the table for the player
+                    for i in 1..tableDeck.length do
+                    puts "#{i}: " + tableDeck.index(i - 1).to_s
+                    end
+                    puts ""
+                else
+                    #50% the bot doesn't want to reshuffle and skip its turn
+                    continue = false
+                end
+
+            else
+                continue = false
             end
         end
 
@@ -190,7 +214,7 @@ class Player
     def thinkingTime(name)
         puts ""
         print "#{name} is thinking"
-        time = rand(2..6)
+        time = rand(2..6) #2..6 normally
 
         for i in 0..time do
             sleep 1
